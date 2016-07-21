@@ -87,10 +87,12 @@ public class GSCoverageEncoder extends GSResourceEncoder {
     /**
      * Add the 'supportedFormat' node with a text value
      */
-    public void addSupportedFormats(String format) {
-        final Element el = new Element("string");
-        el.setText(format);
-        supportedFormatsListEncoder.addContent(el);
+    public void addSupportedFormats(String... formats) {
+        for (String format : formats) {
+            final Element el = new Element("string");
+            el.setText(format);
+            supportedFormatsListEncoder.addContent(el);
+        }
     }
     
     /**
@@ -182,20 +184,20 @@ public class GSCoverageEncoder extends GSResourceEncoder {
             return null;
     }
 
-    public void addRequestSRS(String[] requestsrslist) {
+    public void addRequestSRS(String... requestsrslist) {
 
-        Element requestsrs = new Element("requestSRS");
+        Element requestsrs = new Element(REQUEST_SRS);
 
         for (String request : requestsrslist) {
-            new Element("requestSRS").addContent(new Element("string").setText(request));
+            requestsrs.addContent(new Element("string").setText(request));
         }
 
         addContent(requestsrs);
     }
 
-    public void addResponseSRS(String[] responsesrslist) {
+    public void addResponseSRS(String... responsesrslist) {
 
-        Element responsesrs = new Element("responseSRS");
+        Element responsesrs = new Element(RESPONSE_SRS);
 
         for (String response : responsesrslist) {
             responsesrs.addContent(new Element("string").setText(response));
