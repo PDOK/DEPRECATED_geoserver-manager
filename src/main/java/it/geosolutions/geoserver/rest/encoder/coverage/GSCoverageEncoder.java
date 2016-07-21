@@ -54,6 +54,9 @@ public class GSCoverageEncoder extends GSResourceEncoder {
     
     final private Element dimensionsEncoder = new Element(DIMENSIONS);
     
+    private final static String INTERPOLATION_METHODS = "interpolationMethods";
+    private final static String DEFAULT_INTERPOLATION_METHOD = "defaultInterpolationMethod";
+
     public GSCoverageEncoder() {
         super("coverage");
         addContent(supportedFormatsListEncoder);
@@ -206,4 +209,15 @@ public class GSCoverageEncoder extends GSResourceEncoder {
         addContent(responsesrs);
     }
 
+    public void addInterpolationMethods(String... methods) {
+        Element interpolationMethods = new Element(INTERPOLATION_METHODS);
+        for (String method : methods) {
+            interpolationMethods.addContent(new Element("string").setText(method));
+        }
+        addContent(interpolationMethods);
+    }
+
+    public void setDefaultInterpolationMethod(final String defaultInterpolationMethod) {
+        set(DEFAULT_INTERPOLATION_METHOD, defaultInterpolationMethod);
+    }
 }
