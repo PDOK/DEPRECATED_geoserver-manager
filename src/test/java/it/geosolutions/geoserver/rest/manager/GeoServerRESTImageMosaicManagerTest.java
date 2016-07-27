@@ -314,6 +314,14 @@ public class GeoServerRESTImageMosaicManagerTest extends GeoserverRESTTest {
                 continue;
             }
             
+            if(entry.getKey().equals(GSImageMosaicEncoder.ACCURATERESOLUTIONCOMPUTATION)){
+                coverageEncoder.setAccurateResolutionComputation(Boolean.parseBoolean(entry.getValue()));
+                continue;
+            }
+
+            if(entry.getKey().equals(GSImageMosaicEncoder.FOOTPRINTBEHAVIOR)){
+                coverageEncoder.setFootprintBehavior(entry.getValue());
+            }
         }
         return coverageEncoder;
     }
