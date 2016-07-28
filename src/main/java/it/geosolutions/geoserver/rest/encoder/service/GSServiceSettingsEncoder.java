@@ -80,7 +80,7 @@ public class GSServiceSettingsEncoder extends PropertyXMLEncoder {
     private void addWmsMetadata(String wmsMetadataId){
         String ENTRY = "entry";
         String KEY = "key";
-        metadata.addContent( createElementWithAttribute(ENTRY, "20", KEY, "jpegCompression"));
+        metadata.addContent( createElementWithAttribute(ENTRY, "15", KEY, "jpegCompression"));
         metadata.addContent( createElementWithAttribute(ENTRY, "100", KEY, "pngCompression"));
         metadata.addContent( createElementWithAttribute(ENTRY, "auto", KEY, "kmlSuperoverlayMode"));
         metadata.addContent( createElementWithAttribute(ENTRY, "1000", KEY, "framesDelay"));
@@ -113,7 +113,7 @@ public class GSServiceSettingsEncoder extends PropertyXMLEncoder {
         add("schemaBaseURL", "http://schemas.opengis.net");
         add("bboxForEachCRS", "true");
         addWatermark();
-        add("interpolation", "Nearest");
+        add("interpolation", "Bicubic");
         add("maxBuffer", "25");
         add("maxRequestMemory", "270336");
         add("maxRenderingTime", "60");
