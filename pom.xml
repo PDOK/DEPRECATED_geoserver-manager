@@ -28,7 +28,7 @@
 
     <groupId>nl.pdok</groupId>
     <artifactId>geoserver-manager</artifactId>
-    <version>1.7.0-pdok2-SNAPSHOT</version>
+    <version>1.7.0-pdok2</version>
 
     <packaging>jar</packaging>
 
@@ -77,7 +77,8 @@
         <url>https://github.com/PDOK/geoserver-manager</url>
         <connection>scm:git:https://github.com/PDOK/geoserver-manager.git</connection>
         <developerConnection>scm:git:https://github.com/PDOK/geoserver-manager.git</developerConnection>
-    </scm>
+      <tag>v1.7.0-pdok2</tag>
+  </scm>
 
     <profiles>
         <profile>
