@@ -12,3 +12,8 @@ nb*.xml
 
 ./target
 target
+
+/.idea
+*.iml
+
+*.asc
