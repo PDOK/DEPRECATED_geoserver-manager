@@ -619,7 +619,7 @@ public class GeoServerRESTReader {
      * @return boolean indicating if the wmsstore exists
      */
     public boolean existsWmsstore(String workspace, String wsName){
-        return existsCoveragestore(workspace, wsName, Util.DEFAULT_QUIET_ON_NOT_FOUND);
+        return existsWmsstore(workspace, wsName, Util.DEFAULT_QUIET_ON_NOT_FOUND);
     }
     
     //==========================================================================
@@ -919,7 +919,7 @@ public class GeoServerRESTReader {
      * @return boolean indicating if the Layer exists
      */
     public boolean existsLayer(String workspace, String name){
-        return existsLayerGroup(workspace, name, Util.DEFAULT_QUIET_ON_NOT_FOUND);
+        return existsLayer(workspace, name, Util.DEFAULT_QUIET_ON_NOT_FOUND);
     }
 
     //==========================================================================

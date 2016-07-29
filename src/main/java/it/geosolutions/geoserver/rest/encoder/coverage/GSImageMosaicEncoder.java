@@ -100,6 +100,9 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
         return null;
     }
 
+    //
+    // AllowMultithreading
+    //
     public final static String allowMultithreading = "AllowMultithreading";
 
     /**
@@ -156,14 +159,15 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
         removeParameter(filterFilter);
         addFilter(val);
     }
-    public Boolean getFilter() {
+
+    public String getFilter() {
         Element el = getParameter(filterFilter);
         if (el != null) {
             List<Element> values = el.getChildren();
             for (Element elm : values) {
                 String value = elm.getValue();
                 if (!value.equalsIgnoreCase(filter)) {
-                    return Boolean.valueOf(value);
+                    return value;
                 }
             }
         }
@@ -192,21 +196,20 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
         addMaxAllowedTiles(val);
     }
     
-    public Boolean getMaxAllowedTiles() {
+    public Integer getMaxAllowedTiles() {
         Element el = getParameter(maxAllowedTilesFilter);
         if (el != null) {
             List<Element> values = el.getChildren();
             for (Element elm : values) {
                 String value = elm.getValue();
                 if (!value.equalsIgnoreCase(maxAllowedTiles)) {
-                    return Boolean.valueOf(value);
+                    return Integer.valueOf(value);
                 }
             }
         }
         return null;
     }
 
-    
     //
     // InputTransparentColor
     //
@@ -230,21 +233,20 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
         addInputTransparentColor(val);
     }
     
-    public Boolean getInputTransparentColor() {
+    public String getInputTransparentColor() {
         Element el = getParameter(inputTransparentColorFilter);
         if (el != null) {
             List<Element> values = el.getChildren();
             for (Element elm : values) {
                 String value = elm.getValue();
                 if (!value.equalsIgnoreCase(inputTransparentColor)) {
-                    return Boolean.valueOf(value);
+                    return value;
                 }
             }
         }
         return null;
     }
 
-    
     //
     // OutputTransparentColor
     //
@@ -265,16 +267,17 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
 
     public void setOutputTransparentColor(final String val) {
         removeParameter(outputTransparentColorFilter);
-        addInputTransparentColor(val);
+        addOutputTransparentColor(val);
     }
-    public Boolean getOutputTransparentColor() {
+
+    public String getOutputTransparentColor() {
         Element el = getParameter(outputTransparentColorFilter);
         if (el != null) {
             List<Element> values = el.getChildren();
             for (Element elm : values) {
                 String value = elm.getValue();
                 if (!value.equalsIgnoreCase(outputTransparentColor)) {
-                    return Boolean.valueOf(value);
+                    return value;
                 }
             }
         }
@@ -314,7 +317,6 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
                     return value;
                 }
             }
-
         }
         return null;
     }
@@ -376,14 +378,15 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
         removeParameter(backgroundValuesFilter);
         addBackgroundValues(val);
     }
-    public Boolean getBackgroundValues() {
+
+    public String getBackgroundValues() {
         Element el = getParameter(backgroundValuesFilter);
         if (el != null) {
             List<Element> values = el.getChildren();
             for (Element elm : values) {
                 String value = elm.getValue();
                 if (!value.equalsIgnoreCase(backgroundValues)) {
-                    return Boolean.valueOf(value);
+                    return value;
                 }
             }
         }
@@ -409,13 +412,26 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
 
     public void setSORTING(final String val) {
         removeParameter(SORTING_FILTER);
-        addBackgroundValues(val);
+        addSORTING(val);
     }
     
+    public String getSorting() {
+        Element el = getParameter(SORTING_FILTER);
+        if (el != null) {
+            List<Element> values = el.getChildren();
+            for (Element elm : values) {
+                String value = elm.getValue();
+                if (!value.equalsIgnoreCase(SORTING)) {
+                    return value;
+                }
+            }
+        }
+        return null;
+    }
+
     //
-    // SORTING
+    // MergeBehavior
     //
-    
     public final static String MERGEBEHAVIOR = "MergeBehavior";
 
     /**
@@ -432,6 +448,87 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
 
     public void setMergeBehavior(final String val) {
         removeParameter(MERGEBEHAVIOR_FILTER);
-        addBackgroundValues(val);
+        addMergeBehavior(val);
+    }
+    
+    public String getMergeBehavior() {
+        Element el = getParameter(MERGEBEHAVIOR_FILTER);
+        if (el != null) {
+            List<Element> values = el.getChildren();
+            for (Element elm : values) {
+                String value = elm.getValue();
+                if (!value.equalsIgnoreCase(MERGEBEHAVIOR)) {
+                    return value;
+                }
+            }
+        }
+        return null;
+    }
+
+    //
+    // Accurate resolution computation
+    //
+    public final static String ACCURATERESOLUTIONCOMPUTATION = "Accurate resolution computation";
+
+    protected void addAccurateResolutionComputation(final boolean val) {
+        final List<Element> list = new ArrayList<Element>(2);
+        list.add(new Element(STRING).setText(ACCURATERESOLUTIONCOMPUTATION));
+        list.add(new Element(STRING).setText((val) ? "true" : "false"));
+        parameters.add(null, list);
+    }
+
+    private final static Filter ACCURATERESOLUTIONCOMPUTATION_FILTER = new parametersFilter(
+            ACCURATERESOLUTIONCOMPUTATION);
+
+    public void setAccurateResolutionComputation(final boolean val) {
+        removeParameter(ACCURATERESOLUTIONCOMPUTATION_FILTER);
+        addAccurateResolutionComputation(val);
+    }
+
+    public Boolean getAccurateResolutionComputation() {
+        Element el = getParameter(ACCURATERESOLUTIONCOMPUTATION_FILTER);
+        if (el != null) {
+            List<Element> values = el.getChildren();
+            for (Element elm : values) {
+                String value = elm.getValue();
+                if (!value.equalsIgnoreCase(ACCURATERESOLUTIONCOMPUTATION)) {
+                    return Boolean.valueOf(value);
+                }
+            }
+        }
+        return null;
+    }
+    
+    //
+    // FootprintBehavior
+    //
+    public final static String FOOTPRINTBEHAVIOR = "FootprintBehavior";
+
+    protected void addFootprintBehavior(final String val) {
+        final List<Element> list = new ArrayList<Element>(2);
+        list.add(new Element(STRING).setText(FOOTPRINTBEHAVIOR));
+        list.add(new Element(STRING).setText(val));
+        parameters.add(null, list);
+    }
+
+    private final static Filter FOOTPRINTBEHAVIOR_FILTER = new parametersFilter(FOOTPRINTBEHAVIOR);
+
+    public void setFootprintBehavior(final String val) {
+        removeParameter(FOOTPRINTBEHAVIOR_FILTER);
+        addFootprintBehavior(val);
+    }
+
+    public String getFootprintBehavior() {
+        Element el = getParameter(FOOTPRINTBEHAVIOR_FILTER);
+        if (el != null) {
+            List<Element> values = el.getChildren();
+            for (Element elm : values) {
+                String value = elm.getValue();
+                if (!value.equalsIgnoreCase(FOOTPRINTBEHAVIOR)) {
+                    return value;
+                }
+            }
+        }
+        return null;
     }
 }

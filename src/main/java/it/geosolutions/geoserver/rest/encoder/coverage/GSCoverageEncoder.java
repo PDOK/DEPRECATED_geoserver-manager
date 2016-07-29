@@ -54,6 +54,9 @@ public class GSCoverageEncoder extends GSResourceEncoder {
     
     final private Element dimensionsEncoder = new Element(DIMENSIONS);
     
+    private final static String INTERPOLATION_METHODS = "interpolationMethods";
+    private final static String DEFAULT_INTERPOLATION_METHOD = "defaultInterpolationMethod";
+
     public GSCoverageEncoder() {
         super("coverage");
         addContent(supportedFormatsListEncoder);
@@ -87,10 +90,12 @@ public class GSCoverageEncoder extends GSResourceEncoder {
     /**
      * Add the 'supportedFormat' node with a text value
      */
-    public void addSupportedFormats(String format) {
-        final Element el = new Element("string");
-        el.setText(format);
-        supportedFormatsListEncoder.addContent(el);
+    public void addSupportedFormats(String... formats) {
+        for (String format : formats) {
+            final Element el = new Element("string");
+            el.setText(format);
+            supportedFormatsListEncoder.addContent(el);
+        }
     }
     
     /**
@@ -182,20 +187,20 @@ public class GSCoverageEncoder extends GSResourceEncoder {
             return null;
     }
 
-    public void addRequestSRS(String[] requestsrslist) {
+    public void addRequestSRS(String... requestsrslist) {
 
-        Element requestsrs = new Element("requestSRS");
+        Element requestsrs = new Element(REQUEST_SRS);
 
         for (String request : requestsrslist) {
-            new Element("requestSRS").addContent(new Element("string").setText(request));
+            requestsrs.addContent(new Element("string").setText(request));
         }
 
         addContent(requestsrs);
     }
 
-    public void addResponseSRS(String[] responsesrslist) {
+    public void addResponseSRS(String... responsesrslist) {
 
-        Element responsesrs = new Element("responseSRS");
+        Element responsesrs = new Element(RESPONSE_SRS);
 
         for (String response : responsesrslist) {
             responsesrs.addContent(new Element("string").setText(response));
@@ -204,4 +209,15 @@ public class GSCoverageEncoder extends GSResourceEncoder {
         addContent(responsesrs);
     }
 
+    public void addInterpolationMethods(String... methods) {
+        Element interpolationMethods = new Element(INTERPOLATION_METHODS);
+        for (String method : methods) {
+            interpolationMethods.addContent(new Element("string").setText(method));
+        }
+        addContent(interpolationMethods);
+    }
+
+    public void setDefaultInterpolationMethod(final String defaultInterpolationMethod) {
+        set(DEFAULT_INTERPOLATION_METHOD, defaultInterpolationMethod);
+    }
 }
